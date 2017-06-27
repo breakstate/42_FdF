@@ -62,7 +62,7 @@ void draw_line(t_struct *co, char arr[20][20])
 	bres_step(&bres, co);// co and not &co because co is a pointer here
 	printf("a = %d, b = %d, p = %d\n", bres.a, bres.b, bres.p);
 
-	while (x <= co->Bx && y <= co->By)//needs better stopping condition
+	while (x != co->Bx)//needs better stopping condition
 	{
 		printf("p = %d\n", bres.p);
 		if (bres.p < 0)
