@@ -2,21 +2,23 @@
 #include <stdlib.h>
 
 typedef struct	s_struct{
-	int	startx;
-	int	starty;
-	int	x;
-	int	y;
-	int endx;
-	int endy;
-	int a;
-	int b;
-	int p;
+	int		startx;
+	int		starty;
+	int		x;
+	int		y;
+	int 	endx;
+	int 	endy;
+	int 	a;
+	int 	b;
+	int 	p;
+	float	mgrad;
+	int		pincrmnt;
 }				t_struct;
 
 float	m(t_struct *a)
 {
 	float m;
-	m = (a->endy - a->starty) / (a->endx - a->startx)
+	m = (a->endy - a->starty) / (a->endx - a->startx);
 	printf("m: %.4f\n", m);
 	return (m);
 }
@@ -25,10 +27,11 @@ void line_decision(t_struct *a)
 {
 	int temp;
 
-	if (m(a) > 1)
+	if (m(a) > 1)//swap
 	{
-		temp = a->startx;
-		temp
+		a->x = a->starty;
+		a->starty = a->startx;
+		a->startx = a->x; 
 	}
 }
 
@@ -65,7 +68,7 @@ void	draw_line(t_struct *a, char arr[20][20])
 	a->y = a->starty;
 	
 	//bres(a); uh uh ahh
-	while (a->y < a->endy)
+	while (a->y < a->endy && a->x < a->endx)
 	{
 		printf("coord: (%d;%d)\n", a->x, a->y);
 		if (a->p < 0)
