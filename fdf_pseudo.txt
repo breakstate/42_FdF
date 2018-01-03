@@ -2,6 +2,12 @@ while gnl
 	get max x from first gnl
 	from there if line is smaller throw error
 	if larger ignore
+	count y (until gnl returns 0)
+
+close and reopen fd
+
+while gnl
+	read into internal allocated mem from file
 
 convert to isometric and draw with offset Z depending on value
 draw lines after or during?

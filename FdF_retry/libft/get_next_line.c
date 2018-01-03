@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include "libft/includes/libft.h"
-#include <stdio.h>
 
 static void	build(char **line, char **new, char *pos)
 {
