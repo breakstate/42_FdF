@@ -21,6 +21,7 @@
 int		ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t n);
 int		ft_charequ(char const s1, char const s2);
+int		ft_countwords(const char *str, char c);
 int		ft_isascii(int c);
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);
@@ -73,6 +74,7 @@ char	*ft_strnstr(const char *big, const char *little, size_t len);
 char	*ft_strmap(char const *s, char (*f)(char));
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	**ft_strsplit(char const *s, char c);
+char	**ft_strsplitn(char const *s, char c, int *n);
 int		ft_toupper(int c);
 int		ft_tolower(int c);
 

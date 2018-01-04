@@ -15,6 +15,7 @@ NAME = libft.a
 SRC = ft_atoi.c\
 	  ft_bzero.c\
 	  ft_charequ.c\
+	  ft_countwords.c\
 	  ft_isascii.c\
 	  ft_isalnum.c\
 	  ft_isalpha.c\
@@ -67,6 +68,7 @@ SRC = ft_atoi.c\
 	  ft_strmap.c\
 	  ft_strmapi.c\
 	  ft_strsplit.c\
+	  ft_strsplitn.c\
 	  ft_toupper.c\
 	  ft_tolower.c\
 	  get_next_line.c

@@ -1,31 +1,62 @@
-#include <fcntl.h>
-#include "libft/includes/libft.h"
+#include "fdf.h"
 
-ft_isgoodlen()
-//checks if every subsequent line is equal to or longer than the first
+int		ft_readin(int	fd)
+{
+	char	*line;
+	int		numlines;
+	int		n;
+	int		width;
 
-ft_usage()
-//checks if file exists, correct number of params are used
+	line = NULL;
+	numlines = 0;
+	n = 0;
+	get_next_line(fd, &line);
+	width = ft_strlen(line);
+	while (get_next_line(fd, &line) > 0)
+	{
+		if (numlines == 0)
+			ft_strnsplit(line, ' ', &width);//count words better suited for this
+		if (ft_strlen(line) == 0 || ft_strnsplit(line, ' ', &n) != width)//and this
+		{
+			ft_putstr("Error: bad line.");
+			exit(-1);
+		}
+		numlines++;
+	}
+	return (numlines);//or return allocated 2d array
+}
 
-ft_readin()
-//allocates memory internally
-//reads entire file into internally allocated memory
-//might have to split this one
+int		ft_usage(int argc, char **argv)
+{
+	int		fd;
+
+	if (argc != 2)
+	{
+		ft_putstr("Error: wrong number of parameters.");
+		return (-1);
+	}
+	if (fd = open(argv[1], O_RDONLY) == -1)
+	{
+		ft_putstr("Error: file does not exist.");
+		return (-1);
+	}
+	return (fd);
+}
 
 int		main(int argc, char **argv)
 {
-	char	*line;
+	t_struct line;
 	int		fd;
 
-	line = NULL;
-	fd = open(argv[1], O_RDONLY);
-	ft_putstr("1\n");
-	while (get_next_line(fd, &line) > 0)
-		ft_putendl(line);
-	ft_putstr("2\n");
-	close(fd);
-	fd = open(argv[1], O_RDONLY);
-	while (get_next_line(fd, &line) > 0)
-		ft_putendl(line);
+	if ((fd = ft_usage) == -1)
+		exit(-1);
+
+	ft_readin(fd);
+
+	line.mlx = mlx_init();
+	line.win = mlx_new_window(line.mlx, 400, 400, "[Window title]");
+	mlx_mouse_hook(line.win, mouse_input, &line);
+	mlx_key_hook(line.win, key_input, &line);
+	mlx_loop(line.mlx);
 	return (0);
 }

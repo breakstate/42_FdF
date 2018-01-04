@@ -11,3 +11,5 @@ while gnl
 
 convert to isometric and draw with offset Z depending on value
 draw lines after or during?
+
+test count words;
