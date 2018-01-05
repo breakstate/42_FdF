@@ -42,6 +42,7 @@ SRC = ft_atoi.c\
 	  ft_putnbr_fd.c\
 	  ft_putnbr.c\
 	  ft_putnbr_endl.c\
+	  ft_print2dchar.c\
 	  ft_strlen.c\
 	  ft_strlcat.c\
 	  ft_strcmp.c\

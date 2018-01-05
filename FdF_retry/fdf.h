@@ -25,6 +25,7 @@ typedef struct	s_mlx{
 }				t_mlx;
 
 typedef struct	s_env{
+	int		**map;
 	char	*file;
 	int		fd;
 	int		w;

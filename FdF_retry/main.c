@@ -1,23 +1,40 @@
 #include "fdf.h"
 #include <stdio.h>
-/*
-int		**ft_allocate(t_env *env)
+
+void		ft_allocate(t_env *env)
 {
-	int		**internal;
 	char	*line;
 	int		i;
+	int		j;
+	char 	**split;
+	int		**map;
 	
 	line = NULL;
 	i = -1;
-	internal = (int **)ft_memalloc((sizeof(int *) * numlines) + 1);
-	fd = open(filename, O_RDONLY);
-	while (get_next_line(fd, &line) > 0)
+	//env->map = (int **)ft_memalloc(sizeof(int *) * env->h);
+	map = (int **)malloc(sizeof(int *) * env->h);
+	env->fd = open(env->file, O_RDONLY);
+	//ft_alloc2dint()
+	//map[0] = (int *)malloc(sizeof(int) * env->w);
+	while (get_next_line(env->fd, &line) > 0)
 	{
-		internal[++i] = line;
+		puts("top while\n");
+		++i;
+		j = 0;
+		split = ft_strsplit(line, ' ');
+		ft_print2dchar(split);
+		puts("did split\n");
+		//printf("i = [%d]\nj = [%d]\nh = [%d]\nw = [%d]\n", i, j, env->h, env->w);
+		while (j < env->w)
+		{
+			puts("how many?\n");
+			map[i][j] = /*printf("[%d]\n",*/ ft_atoi(split[j]);
+			//ft_putnbr(env->map[i][j]);
+			j++;
+		}
 	}
-	return (internal);
 }
-*/
+
 void	ft_error(char *error)
 {
 	ft_putstr("Error: ");
@@ -67,7 +84,20 @@ int		main(int argc, char **argv)
 
 	env.fd = ft_checkargs(argc, argv, &env);
 	ft_countlines(&env);
-	//ft_allocate(&env);
+	ft_allocate(&env);
+	int i, j = -1;
+	while (i < env.h)
+	{
+		puts("while\n");
+		j = -1;
+		while (++j < env.w)
+		{
+			ft_putnbr(env.map[i][j]);
+			ft_putchar(' ');
+		}
+		i++;
+		ft_putendl("");
+	}
 
 	//line.mlx = mlx_init();
 	//line.win = mlx_new_window(line.mlx, 400, 400, "[Window title]");
