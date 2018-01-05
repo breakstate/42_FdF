@@ -19,9 +19,16 @@
 # include <math.h>
 # include "libft/includes/libft.h"
 
-typedef struct	s_struct{
+typedef struct	s_mlx{
 	void	*mlx;
 	void	*win;
-}				t_struct;
+}				t_mlx;
+
+typedef struct	s_env{
+	char	*file;
+	int		fd;
+	int		w;
+	int		h;
+}				t_env;
 
 #endif

@@ -7,7 +7,7 @@ int		ft_countwords(const char *str, char c)
 	i = 0;
 	flag = 0;
 	count = 0;
-	while (str[i])
+	while (str && str[i])
 	{
 		if (str[i] != c && flag == 0)
 		{

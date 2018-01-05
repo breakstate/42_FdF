@@ -1,62 +1,78 @@
 #include "fdf.h"
-
-int		ft_readin(int	fd)
+#include <stdio.h>
+/*
+int		**ft_allocate(t_env *env)
 {
+	int		**internal;
 	char	*line;
-	int		numlines;
-	int		n;
-	int		width;
-
+	int		i;
+	
 	line = NULL;
-	numlines = 0;
-	n = 0;
-	get_next_line(fd, &line);
-	width = ft_strlen(line);
+	i = -1;
+	internal = (int **)ft_memalloc((sizeof(int *) * numlines) + 1);
+	fd = open(filename, O_RDONLY);
 	while (get_next_line(fd, &line) > 0)
 	{
-		if (numlines == 0)
-			ft_strnsplit(line, ' ', &width);//count words better suited for this
-		if (ft_strlen(line) == 0 || ft_strnsplit(line, ' ', &n) != width)//and this
-		{
-			ft_putstr("Error: bad line.");
-			exit(-1);
-		}
-		numlines++;
+		internal[++i] = line;
 	}
-	return (numlines);//or return allocated 2d array
+	return (internal);
+}
+*/
+void	ft_error(char *error)
+{
+	ft_putstr("Error: ");
+	ft_putstr(error);
+	ft_putendl(" Exiting.");
+	exit(-1);
 }
 
-int		ft_usage(int argc, char **argv)
+void	ft_countlines(t_env *env)
+{
+	char	*line;
+
+	line = NULL;
+	env->h = 0;
+	env->w = 0;
+	while (get_next_line(env->fd, &line) > 0)
+	{
+		if (env->h == 0)
+			env->w = ft_countwords(line, ' ');
+		if (ft_strlen(line) == 0 || ft_countwords(line, ' ') < env->w)
+			ft_error("bad line in file.");
+		env->h++;
+	}
+	if (!(env->h))
+		ft_error("no data found.");
+	close(env->fd);
+}
+
+int		ft_checkargs(int argc, char **argv, t_env *env)
 {
 	int		fd;
 
 	if (argc != 2)
-	{
-		ft_putstr("Error: wrong number of parameters.");
-		return (-1);
-	}
-	if (fd = open(argv[1], O_RDONLY) == -1)
-	{
-		ft_putstr("Error: file does not exist.");
-		return (-1);
-	}
+		ft_error("wrong number of parameters.");
+	if ((fd = open(argv[1], O_RDONLY)) == -1)
+		ft_error("file does not exist.");
+	env->file = argv[1];
 	return (fd);
 }
 
 int		main(int argc, char **argv)
 {
-	t_struct line;
+	//t_struct line;
+	t_env	env;
+	int		numlines;
 	int		fd;
 
-	if ((fd = ft_usage) == -1)
-		exit(-1);
+	env.fd = ft_checkargs(argc, argv, &env);
+	ft_countlines(&env);
+	//ft_allocate(&env);
 
-	ft_readin(fd);
-
-	line.mlx = mlx_init();
-	line.win = mlx_new_window(line.mlx, 400, 400, "[Window title]");
-	mlx_mouse_hook(line.win, mouse_input, &line);
-	mlx_key_hook(line.win, key_input, &line);
-	mlx_loop(line.mlx);
+	//line.mlx = mlx_init();
+	//line.win = mlx_new_window(line.mlx, 400, 400, "[Window title]");
+	//mlx_mouse_hook(line.win, mouse_input, &line);
+	//mlx_key_hook(line.win, key_input, &line);
+	//mlx_loop(line.mlx);
 	return (0);
 }

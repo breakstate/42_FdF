@@ -6,7 +6,7 @@
 #    By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/29 15:02:38 by bmoodley          #+#    #+#              #
-#    Updated: 2017/07/01 11:01:57 by bmoodley         ###   ########.fr        #
+#    Updated: 2018/01/05 11:28:46 by bmoodley         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME):
-	gcc -c -Wall -Wextra -Werror $(SRC)
+	gcc -c -Wall -Wextra -Werror $(SRC) -I includes
 	ar rc $(NAME) $(OBJ)
 	ranlib $(NAME)
 
