@@ -19,7 +19,7 @@
 # include <math.h>
 # include "libft/includes/libft.h"
 
-# define ENV(x) x - (env->map[i][j] * 4)
+# define ENV(x, i, j) x - (env->map[i][j] * 10)
 
 typedef struct	s_mlx{
 	void	*mlx;
