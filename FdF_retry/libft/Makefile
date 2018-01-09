@@ -13,9 +13,11 @@
 NAME = libft.a
 
 SRC = ft_atoi.c\
+	  ft_alloc2dint.c\
 	  ft_bzero.c\
 	  ft_charequ.c\
 	  ft_countwords.c\
+	  ft_free2dint.c\
 	  ft_isascii.c\
 	  ft_isalnum.c\
 	  ft_isalpha.c\
@@ -43,6 +45,7 @@ SRC = ft_atoi.c\
 	  ft_putnbr.c\
 	  ft_putnbr_endl.c\
 	  ft_print2dchar.c\
+	  ft_print2dint.c\
 	  ft_strlen.c\
 	  ft_strlcat.c\
 	  ft_strcmp.c\

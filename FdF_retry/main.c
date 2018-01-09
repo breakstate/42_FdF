@@ -1,46 +1,40 @@
 #include "fdf.h"
 #include <stdio.h>
 
-void		ft_allocate(t_env *env)
-{
-	char	*line;
-	int		i;
-	int		j;
-	char 	**split;
-	int		**map;
-	
-	line = NULL;
-	i = -1;
-	//env->map = (int **)ft_memalloc(sizeof(int *) * env->h);
-	map = (int **)malloc(sizeof(int *) * env->h);
-	env->fd = open(env->file, O_RDONLY);
-	//ft_alloc2dint()
-	//map[0] = (int *)malloc(sizeof(int) * env->w);
-	while (get_next_line(env->fd, &line) > 0)
-	{
-		puts("top while\n");
-		++i;
-		j = 0;
-		split = ft_strsplit(line, ' ');
-		ft_print2dchar(split);
-		puts("did split\n");
-		//printf("i = [%d]\nj = [%d]\nh = [%d]\nw = [%d]\n", i, j, env->h, env->w);
-		while (j < env->w)
-		{
-			puts("how many?\n");
-			map[i][j] = /*printf("[%d]\n",*/ ft_atoi(split[j]);
-			//ft_putnbr(env->map[i][j]);
-			j++;
-		}
-	}
-}
-
 void	ft_error(char *error)
 {
 	ft_putstr("Error: ");
 	ft_putstr(error);
 	ft_putendl(" Exiting.");
 	exit(-1);
+}
+
+void		ft_allocate(t_env *env)
+{
+	char	*line;
+	int		i;
+	int		j;
+	char 	**split;
+	
+	line = NULL;
+	i = -1;
+	if ((env->map = ft_alloc2dint(env->w, env->h)) == NULL)
+		ft_error("allocation failed.");
+	env->fd = open(env->file, O_RDONLY);
+	while (get_next_line(env->fd, &line) > 0 && ++i < env->h)
+	{
+		j = -1;
+		split = ft_strsplit(line, ' ');
+		while (++j < env->w)
+		{
+			env->map[i][j] = ft_atoi(split[j]);
+		}
+		free(line);
+		line = NULL;
+	}
+	ft_print2dint(env->map, env->w, env->h);
+	ft_free2dint(env->map, env->h);
+	ft_putstr("freed.. but test\n");
 }
 
 void	ft_countlines(t_env *env)

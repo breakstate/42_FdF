@@ -19,9 +19,11 @@
 # include "get_next_line.h"
 
 int		ft_atoi(const char *str);
+int		**ft_alloc2dint(int x, int y);
 void	ft_bzero(void *s, size_t n);
 int		ft_charequ(char const s1, char const s2);
 int		ft_countwords(const char *str, char c);
+void	ft_free2dint(int **arr, int y);
 int		ft_isascii(int c);
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);
@@ -49,6 +51,7 @@ void	ft_putnbr(int n);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putnbr_endl(int n);
 void	ft_print2dchar(char **arr);
+void	ft_print2dint(int **arr, int x, int y);
 size_t	ft_strlen(const char *str);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 int		ft_strcmp(const char *s1, const char *s2);
