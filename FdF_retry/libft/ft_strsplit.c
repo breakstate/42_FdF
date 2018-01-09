@@ -93,3 +93,27 @@ char			**ft_strsplit(char const *s, char c)
 		word_array = (char **)ft_memalloc(sizeof(char *) * 1);
 	return (word_array);
 }
+
+int main(int argc, char **argv)
+{
+	int fd;
+	char *line;
+	char **split;
+	int		i;
+
+	i = 0;
+	line = NULL;
+	fd = open(argv[1], O_RDONLY);
+
+	while (get_next_line(fd, &line) > 0)
+	{
+		ft_putstr("big while");
+		split = ft_strsplit(line, ' ');
+		while (split[i])
+		{
+			printf("[%s]\n", split[i]);
+			i++;
+		}
+	}
+	return (0);
+}
