@@ -33,8 +33,8 @@ void		ft_allocate(t_env *env)
 		line = NULL;
 	}
 	ft_print2dint(env->map, env->w, env->h);
-	ft_free2dint(env->map, env->h);
-	ft_putstr("freed.. but test\n");
+	//ft_free2dint(env->map, env->h);
+	//ft_putstr("freed.. but test\n");
 }
 
 void	ft_countlines(t_env *env)
@@ -97,7 +97,7 @@ int		main(int argc, char **argv)
 	env.win = mlx_new_window(env.mlx, 400, 400, "[Window title]");
 	//mlx_mouse_hook(line.win, mouse_input, &line);
 	//mlx_key_hook(line.win, key_input, &line);
-	ft_draw(&env);
+	ft_draw_grid(&env);
 	mlx_loop(env.mlx);
 	return (0);
 }

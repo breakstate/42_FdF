@@ -19,12 +19,29 @@
 # include <math.h>
 # include "libft/includes/libft.h"
 
+# define ENV(x) x - (env->map[i][j] * 4)
+
 typedef struct	s_mlx{
 	void	*mlx;
 	void	*win;
 }				t_mlx;
 
+typedef struct	s_line{
+	float		dx;
+	float		dy;
+	float		xinc;
+	float		yinc;
+	float		x1;
+	float		x2;
+	float		y1;
+	float		y2;
+	float		x;
+	float		y;
+	float		step;
+}				t_line;
+
 typedef struct	s_env{
+	t_line	line;
 	int		**map;
 	char	*file;
 	int		fd;
@@ -34,6 +51,6 @@ typedef struct	s_env{
 	void	*win;
 }				t_env;
 
-void	ft_draw(t_env *env);
+void	ft_draw_grid(t_env *env);
 
 #endif
