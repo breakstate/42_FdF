@@ -2,6 +2,7 @@
 
 void	ft_draw_line(t_env *env)
 {
+	ft_putstr("start draw line\n");
 	//int 	i;
 	//i = 0;
 	// calculate dx , dy
@@ -26,7 +27,7 @@ void	ft_draw_line(t_env *env)
    	 env->line.x += env->line.xinc;
    	 env->line.y += env->line.yinc;
 	}
-
+	ft_putstr("end draw line\n");
 }
 
 void	ft_draw_grid(t_env *env)
@@ -36,7 +37,6 @@ void	ft_draw_grid(t_env *env)
 	//int		isox;
 	//int		isoy;
 
-	ft_print2dint(env->map, env->w, env->h);
 	i = -1;
 	while (++i < env->h)
 	{
@@ -45,15 +45,18 @@ void	ft_draw_grid(t_env *env)
 		{
 			env->line.x1  = ((j - i) * 10) + 200;
 			env->line.y1 = ENV(((((j + i) * 10) / 2) + 200), i, j);
-			env->line.x2  = ((j - (i + 1)) * 10) + 200;
-			env->line.y2 = ENV((((j + (i + 1)) * 10) / 2) + 200, i + 1, j);
-			if (i + 1 <= env->h)
+			if (i + 1 < env->h)
+			{
+				env->line.x2  = ((j - (i + 1)) * 10) + 200;
+				env->line.y2 = ENV((((j + (i + 1)) * 10) / 2) + 200, i + 1, j);
 				ft_draw_line(env);
-			env->line.x2 = (((j + 1) - i) * 10) + 200;
-			env->line.y2 = ENV(((((j + 1) + i) * 10) / 2) + 200, i, j + 1);
-			if (j + 1 <= env->w)			
+			}
+			if (j + 1 < env->w)
+			{
+				env->line.x2 = (((j + 1) - i) * 10) + 200;
+				env->line.y2 = ENV(((((j + 1) + i) * 10) / 2) + 200, i, j + 1);
 				ft_draw_line(env);
-			//mlx_pixel_put(env->mlx, env->win, isox, ENV(isoy), 0x00FFFFFF);
+			}
 			//not working correcfly
 		}
 	}
