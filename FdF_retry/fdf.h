@@ -30,6 +30,10 @@ typedef struct	s_env{
 	int		fd;
 	int		w;
 	int		h;
+	void	*mlx;
+	void	*win;
 }				t_env;
+
+void	ft_draw(t_env *env);
 
 #endif

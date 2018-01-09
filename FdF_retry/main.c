@@ -93,10 +93,11 @@ int		main(int argc, char **argv)
 		ft_putendl("");
 	}
 
-	//line.mlx = mlx_init();
-	//line.win = mlx_new_window(line.mlx, 400, 400, "[Window title]");
+	env.mlx = mlx_init();
+	env.win = mlx_new_window(env.mlx, 400, 400, "[Window title]");
 	//mlx_mouse_hook(line.win, mouse_input, &line);
 	//mlx_key_hook(line.win, key_input, &line);
-	//mlx_loop(line.mlx);
+	ft_draw(&env);
+	mlx_loop(env.mlx);
 	return (0);
 }
