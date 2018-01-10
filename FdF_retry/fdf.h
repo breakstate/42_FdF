@@ -26,8 +26,10 @@
 //right = 124
 //up = 126
 //down = 125
+//smaller than = 43
+//bigger than = 47
 
-# define ENV(x, i, j) x - (env->map[i][j] * env->zoom)
+# define ENV(x, i, j) x - (env->map[i][j] * env->zoomz)
 
 typedef struct	s_mlx{
 	void	*mlx;
@@ -58,9 +60,13 @@ typedef struct	s_env{
 	void	*mlx;
 	void	*win;
 	int		zoom;
+	int		zoomz;
+	int		xoff;
+	int		yoff;
 }				t_env;
 
-void	ft_draw_grid(t_env *env);
-int		key_input(int keycode, t_env *env);
+void	ft_drawgrid(t_env *env);
+int		ft_keyinput(int keycode, t_env *env);
+int		ft_redclose(t_env *env);
 
 #endif

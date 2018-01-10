@@ -18,23 +18,17 @@ void		ft_allocate(t_env *env)
 	
 	line = NULL;
 	i = -1;
-	printf("x = [%d], y = [%d]\n", env->w, env->h);
 	if ((env->map = ft_alloc2dint(env->w, env->h)) == NULL)
 		ft_error("allocation failed.");
 	env->fd = open(env->file, O_RDONLY);
 	while (get_next_line(env->fd, &line) > 0 && ++i < env->h)
 	{
-		puts("pass s");
 		j = -1;
-		puts(line);
 		split = ft_strsplit(line, ' ');
-		puts("after split");
 		while (++j < env->w)
 		{
-			puts("Pass b");
 			env->map[i][j] = ft_atoi(split[j]);
 			free(split[j]);
-			puts("Pass a");
 		}
 		//free properly
 		free(line);
@@ -83,18 +77,18 @@ int		main(int argc, char **argv)
 	t_env	env;
 
 	env.zoom = 10;
+	env.zoomz = 10;
+	env.xoff = 200;
+	env.yoff = 200;
 	env.fd = ft_checkargs(argc, argv, &env);
 	ft_countlines(&env);
-	puts("Pass 1");
 	ft_allocate(&env);
-	puts("Pass 2");
 	int i, j = -1;
 	env.mlx = mlx_init();
 	env.win = mlx_new_window(env.mlx, 400, 400, "[Window title]");
-	//mlx_mouse_hook(line.win, mouse_input, &line);
-	mlx_key_hook(env.win, key_input, &env);
-	puts("Pass 3");
-	ft_draw_grid(&env);
+	mlx_key_hook(env.win, ft_keyinput, &env);
+	mlx_hook(env.win, 17, 0L, ft_redclose, &env);
+	ft_drawgrid(&env);
 	mlx_loop(env.mlx);
 	return (0);
 }

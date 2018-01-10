@@ -1,28 +1,7 @@
 #include "fdf.h"
 
-int		key_input(int keycode, t_env *env)
+void	ft_drawline(t_env *env)
 {
-	//printf("key - %d\n", keycode);
-
-	if (keycode == 8)//c
-		mlx_clear_window(env->mlx, env->win);
-	if (keycode == 53)
-	{
-		mlx_destroy_window(env->mlx, env->win);
-		exit(0);
-	}
-	if (keycode == 69 || keycode == 78)
-	{
-		env->zoom += keycode == 69 ? 2 : -2;
-		mlx_clear_window(env->mlx, env->win);
-		ft_draw_grid(env);
-	}
-	return (0);
-}
-
-void	ft_draw_line(t_env *env)
-{
-	ft_putstr("start draw line\n");
 	//int 	i;
 	//i = 0;
 	// calculate dx , dy
@@ -32,7 +11,8 @@ void	ft_draw_line(t_env *env)
 // Depending upon absolute value of dx & dy
 // choose number of steps to put pixel as
 // steps = abs(dx) > abs(dy) ? abs(dx) : abs(dy)
-	env->line.step = fabs(env->line.dx) > fabs(env->line.dy) ? fabs(env->line.dx) : fabs(env->line.dy);
+	env->line.step = fabs(env->line.dx) > fabs(env->line.dy) ?
+	fabs(env->line.dx) : fabs(env->line.dy);
 
 // calculate increment in x & y for each steps
 	env->line.xinc = env->line.dx / (float) env->line.step;
@@ -47,10 +27,23 @@ void	ft_draw_line(t_env *env)
    	 env->line.x += env->line.xinc;
    	 env->line.y += env->line.yinc;
 	}
-	ft_putstr("end draw line\n");
 }
 
-void	ft_draw_grid(t_env *env)
+void	ft_drawgrid_if1(t_env *env, int i, int j)
+{
+	env->line.x2  = ((j - (i + 1)) * env->zoom) + env->xoff;
+	env->line.y2 = ENV((((j + (i + 1)) * env->zoom) / 2) + env->yoff, i + 1, j);
+	ft_drawline(env);
+}
+
+void	ft_drawgrid_if2(t_env *env, int i, int j)
+{
+	env->line.x2 = (((j + 1) - i) * env->zoom) + env->xoff;
+	env->line.y2 = ENV(((((j + 1) + i) * env->zoom) / 2) + env->yoff, i, j + 1);
+	ft_drawline(env);
+}
+
+void	ft_drawgrid(t_env *env)
 {
 	int		i;
 	int 	j;
@@ -61,21 +54,16 @@ void	ft_draw_grid(t_env *env)
 		j = -1;
 		while(++j < env->w)
 		{
-			env->line.x1  = ((j - i) * env->zoom) + 200;
-			env->line.y1 = ENV(((((j + i) * env->zoom) / 2) + 200), i, j);
+			env->line.x1  = ((j - i) * env->zoom) + env->xoff;
+			env->line.y1 = ENV(((((j + i) * env->zoom) / 2) + env->yoff), i, j);
 			if (i + 1 < env->h)
 			{
-				env->line.x2  = ((j - (i + 1)) * env->zoom) + 200;
-				env->line.y2 = ENV((((j + (i + 1)) * env->zoom) / 2) + 200, i + 1, j);
-				ft_draw_line(env);
+				ft_drawgrid_if1(env, i, j);
 			}
 			if (j + 1 < env->w)
 			{
-				env->line.x2 = (((j + 1) - i) * env->zoom) + 200;
-				env->line.y2 = ENV(((((j + 1) + i) * env->zoom) / 2) + 200, i, j + 1);
-				ft_draw_line(env);
+				ft_drawgrid_if2(env, i, j);
 			}
-			//not working correcfly
 		}
 	}
 }
