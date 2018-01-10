@@ -19,7 +19,15 @@
 # include <math.h>
 # include "libft/includes/libft.h"
 
-# define ENV(x, i, j) x - (env->map[i][j] * 10)
+//+ = 69
+//- = 78
+//esc = 53
+//left = 123
+//right = 124
+//up = 126
+//down = 125
+
+# define ENV(x, i, j) x - (env->map[i][j] * env->zoom)
 
 typedef struct	s_mlx{
 	void	*mlx;
@@ -49,8 +57,10 @@ typedef struct	s_env{
 	int		h;
 	void	*mlx;
 	void	*win;
+	int		zoom;
 }				t_env;
 
 void	ft_draw_grid(t_env *env);
+int		key_input(int keycode, t_env *env);
 
 #endif

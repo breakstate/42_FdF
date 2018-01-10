@@ -80,36 +80,19 @@ int		ft_checkargs(int argc, char **argv, t_env *env)
 
 int		main(int argc, char **argv)
 {
-	//t_struct line;
 	t_env	env;
-	int		numlines;
-	int		fd;
 
+	env.zoom = 10;
 	env.fd = ft_checkargs(argc, argv, &env);
 	ft_countlines(&env);
 	puts("Pass 1");
 	ft_allocate(&env);
 	puts("Pass 2");
 	int i, j = -1;
-	/*
-	while (i < env.h)
-	{
-		puts("while\n");
-		j = -1;
-		while (++j < env.w)
-		{
-			ft_putnbr(env.map[i][j]);
-			ft_putchar(' ');
-		}
-		i++;
-		ft_putendl("");
-	}
-	*/
-
 	env.mlx = mlx_init();
 	env.win = mlx_new_window(env.mlx, 400, 400, "[Window title]");
 	//mlx_mouse_hook(line.win, mouse_input, &line);
-	//mlx_key_hook(line.win, key_input, &line);
+	mlx_key_hook(env.win, key_input, &env);
 	puts("Pass 3");
 	ft_draw_grid(&env);
 	mlx_loop(env.mlx);

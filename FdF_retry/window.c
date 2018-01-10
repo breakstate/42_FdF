@@ -1,5 +1,25 @@
 #include "fdf.h"
 
+int		key_input(int keycode, t_env *env)
+{
+	//printf("key - %d\n", keycode);
+
+	if (keycode == 8)//c
+		mlx_clear_window(env->mlx, env->win);
+	if (keycode == 53)
+	{
+		mlx_destroy_window(env->mlx, env->win);
+		exit(0);
+	}
+	if (keycode == 69 || keycode == 78)
+	{
+		env->zoom += keycode == 69 ? 2 : -2;
+		mlx_clear_window(env->mlx, env->win);
+		ft_draw_grid(env);
+	}
+	return (0);
+}
+
 void	ft_draw_line(t_env *env)
 {
 	ft_putstr("start draw line\n");
@@ -34,8 +54,6 @@ void	ft_draw_grid(t_env *env)
 {
 	int		i;
 	int 	j;
-	//int		isox;
-	//int		isoy;
 
 	i = -1;
 	while (++i < env->h)
@@ -43,18 +61,18 @@ void	ft_draw_grid(t_env *env)
 		j = -1;
 		while(++j < env->w)
 		{
-			env->line.x1  = ((j - i) * 10) + 200;
-			env->line.y1 = ENV(((((j + i) * 10) / 2) + 200), i, j);
+			env->line.x1  = ((j - i) * env->zoom) + 200;
+			env->line.y1 = ENV(((((j + i) * env->zoom) / 2) + 200), i, j);
 			if (i + 1 < env->h)
 			{
-				env->line.x2  = ((j - (i + 1)) * 10) + 200;
-				env->line.y2 = ENV((((j + (i + 1)) * 10) / 2) + 200, i + 1, j);
+				env->line.x2  = ((j - (i + 1)) * env->zoom) + 200;
+				env->line.y2 = ENV((((j + (i + 1)) * env->zoom) / 2) + 200, i + 1, j);
 				ft_draw_line(env);
 			}
 			if (j + 1 < env->w)
 			{
-				env->line.x2 = (((j + 1) - i) * 10) + 200;
-				env->line.y2 = ENV(((((j + 1) + i) * 10) / 2) + 200, i, j + 1);
+				env->line.x2 = (((j + 1) - i) * env->zoom) + 200;
+				env->line.y2 = ENV(((((j + 1) + i) * env->zoom) / 2) + 200, i, j + 1);
 				ft_draw_line(env);
 			}
 			//not working correcfly
