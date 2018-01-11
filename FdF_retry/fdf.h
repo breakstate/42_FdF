@@ -48,23 +48,23 @@ typedef struct	s_line{
 }				t_line;
 
 typedef struct	s_env{
-	t_line	line;
-	int		**map;
-	char	*file;
-	int		fd;
-	int		w;
-	int		h;
-	void	*mlx;
-	void	*win;
-	int		zoom;
-	int		xoff;
-	int		yoff;
-	int		z;
+	t_line		line;
+	int			**map;
+	char		*file;
+	int			fd;
+	int			w;
+	int			h;
+	void		*mlx;
+	void		*win;
+	int			zoom;
+	int			xoff;
+	int			yoff;
+	int			z;
 }				t_env;
 
-void	ft_drawgrid(t_env *env);
-int		ft_keyinput(int keycode, t_env *env);
-int		ft_redclose(t_env *env);
-void	ft_init(t_env *env);
+void			ft_drawgrid(t_env *env);
+int				ft_keyinput(int keycode, t_env *env);
+int				ft_redclose(t_env *env);
+void			ft_init(t_env *env);
 
 #endif
