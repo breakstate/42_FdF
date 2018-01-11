@@ -54,6 +54,8 @@ typedef struct	s_env{
 	int			fd;
 	int			w;
 	int			h;
+	int			winx;
+	int			winy;
 	void		*mlx;
 	void		*win;
 	int			zoom;

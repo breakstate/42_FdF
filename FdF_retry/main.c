@@ -80,12 +80,12 @@ int			main(int argc, char **argv)
 {
 	t_env	env;
 
-	ft_init(&env);
 	env.fd = ft_checkargs(argc, argv, &env);
 	ft_countlines(&env);
 	ft_allocate(&env);
+	ft_init(&env);
 	env.mlx = mlx_init();
-	env.win = mlx_new_window(env.mlx, 400, 400, "[Window title]");
+	env.win = mlx_new_window(env.mlx, env.winx, env.winy, "[Window title]");
 	mlx_key_hook(env.win, ft_keyinput, &env);
 	mlx_hook(env.win, 17, 0L, ft_redclose, &env);
 	ft_drawgrid(&env);
