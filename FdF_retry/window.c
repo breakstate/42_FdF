@@ -1,9 +1,10 @@
 #include "fdf.h"
 
-void	ft_drawline(t_env *env)
+void		ft_drawline(t_env *env)
 {
-	//int 	i;
-	//i = 0;
+	int		i;
+
+	i = -1;
 	// calculate dx , dy
 	env->line.dx = env->line.x2 - env->line.x1;
 	env->line.dy = env->line.y2 - env->line.y1;
@@ -21,23 +22,16 @@ void	ft_drawline(t_env *env)
 // Put pixel for each step
 	env->line.x = env->line.x1;
 	env->line.y = env->line.y1;
-	for (int i = 0; i <= env->line.step; i++)
+
+	while (++i <= env->line.step)
 	{
-   	 mlx_pixel_put(env->mlx, env->win, env->line.x, env->line.y, 0x00FFFFFF);
-   	 env->line.x += env->line.xinc;
-   	 env->line.y += env->line.yinc;
+		mlx_pixel_put(env->mlx, env->win, env->line.x, env->line.y, 0x00FFFFFF);
+		env->line.x += env->line.xinc;
+		env->line.y += env->line.yinc;
 	}
 }
 
-void	ft_drawgrid_if1(t_env *env, int i, int j)
-{
-	env->z = env->map[i][j] * env->zoom;	
-	env->line.x2 = ((j - i) * env->zoom) + env->xoff;
-	env->line.y2 = ((((j + i) * env->zoom) / 2) + env->yoff) - env->z;
-	ft_drawline(env);
-}
-
-void	ft_drawgrid_if2(t_env *env, int i, int j)
+void		ft_drawgrid_if1(t_env *env, int i, int j)
 {
 	env->z = env->map[i][j] * env->zoom;
 	env->line.x2 = ((j - i) * env->zoom) + env->xoff;
@@ -45,19 +39,27 @@ void	ft_drawgrid_if2(t_env *env, int i, int j)
 	ft_drawline(env);
 }
 
-void	ft_drawgrid(t_env *env)
+void		ft_drawgrid_if2(t_env *env, int i, int j)
+{
+	env->z = env->map[i][j] * env->zoom;
+	env->line.x2 = ((j - i) * env->zoom) + env->xoff;
+	env->line.y2 = ((((j + i) * env->zoom) / 2) + env->yoff) - env->z;
+	ft_drawline(env);
+}
+
+void		ft_drawgrid(t_env *env)
 {
 	int		i;
-	int 	j;
+	int		j;
 
 	i = -1;
 	while (++i < env->h)
 	{
 		j = -1;
-		while(++j < env->w)
+		while (++j < env->w)
 		{
 			env->z = env->map[i][j] * env->zoom;
-			env->line.x1  = ((j - i) * env->zoom) + env->xoff;
+			env->line.x1 = ((j - i) * env->zoom) + env->xoff;
 			env->line.y1 = ((((j + i) * env->zoom) / 2) + env->yoff) - env->z;
 			if (i + 1 < env->h)
 				ft_drawgrid_if1(env, i + 1, j);

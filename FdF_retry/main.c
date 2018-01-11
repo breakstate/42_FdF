@@ -1,7 +1,18 @@
-#include "fdf.h"
-#include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/11 15:25:40 by bmoodley          #+#    #+#             */
+/*   Updated: 2018/01/11 15:28:09 by bmoodley         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	ft_error(char *error)
+#include "fdf.h"
+
+void		ft_error(char *error)
 {
 	ft_putstr("Error: ");
 	ft_putstr(error);
@@ -14,8 +25,8 @@ void		ft_allocate(t_env *env)
 	char	*line;
 	int		i;
 	int		j;
-	char 	**split;
-	
+	char	**split;
+
 	line = NULL;
 	i = -1;
 	if ((env->map = ft_alloc2dint(env->w, env->h)) == NULL)
@@ -23,7 +34,6 @@ void		ft_allocate(t_env *env)
 	env->fd = open(env->file, O_RDONLY);
 	while (get_next_line(env->fd, &line) > 0 && ++i < env->h)
 	{
-		printf("env-w (x) = [%d], env-h (y) = [%d]\n", env->w, env->h);
 		j = -1;
 		split = ft_strsplit(line, ' ');
 		while (++j < env->w)
@@ -34,7 +44,7 @@ void		ft_allocate(t_env *env)
 	}
 }
 
-void	ft_countlines(t_env *env)
+void		ft_countlines(t_env *env)
 {
 	char	*line;
 
@@ -54,7 +64,7 @@ void	ft_countlines(t_env *env)
 	close(env->fd);
 }
 
-int		ft_checkargs(int argc, char **argv, t_env *env)
+int			ft_checkargs(int argc, char **argv, t_env *env)
 {
 	int		fd;
 
@@ -66,14 +76,14 @@ int		ft_checkargs(int argc, char **argv, t_env *env)
 	return (fd);
 }
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_env	env;
+
 	ft_init(&env);
 	env.fd = ft_checkargs(argc, argv, &env);
 	ft_countlines(&env);
 	ft_allocate(&env);
-	int i, j = -1;
 	env.mlx = mlx_init();
 	env.win = mlx_new_window(env.mlx, 400, 400, "[Window title]");
 	mlx_key_hook(env.win, ft_keyinput, &env);
