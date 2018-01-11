@@ -31,15 +31,17 @@ void	ft_drawline(t_env *env)
 
 void	ft_drawgrid_if1(t_env *env, int i, int j)
 {
-	env->line.x2  = ((j - (i + 1)) * env->zoom) + env->xoff;
-	env->line.y2 = ENV((((j + (i + 1)) * env->zoom) / 2) + env->yoff, i + 1, j);
+	env->z = env->map[i][j] * env->zoom;	
+	env->line.x2 = ((j - i) * env->zoom) + env->xoff;
+	env->line.y2 = ((((j + i) * env->zoom) / 2) + env->yoff) - env->z;
 	ft_drawline(env);
 }
 
 void	ft_drawgrid_if2(t_env *env, int i, int j)
 {
-	env->line.x2 = (((j + 1) - i) * env->zoom) + env->xoff;
-	env->line.y2 = ENV(((((j + 1) + i) * env->zoom) / 2) + env->yoff, i, j + 1);
+	env->z = env->map[i][j] * env->zoom;
+	env->line.x2 = ((j - i) * env->zoom) + env->xoff;
+	env->line.y2 = ((((j + i) * env->zoom) / 2) + env->yoff) - env->z;
 	ft_drawline(env);
 }
 
@@ -54,16 +56,13 @@ void	ft_drawgrid(t_env *env)
 		j = -1;
 		while(++j < env->w)
 		{
+			env->z = env->map[i][j] * env->zoom;
 			env->line.x1  = ((j - i) * env->zoom) + env->xoff;
-			env->line.y1 = ENV(((((j + i) * env->zoom) / 2) + env->yoff), i, j);
+			env->line.y1 = ((((j + i) * env->zoom) / 2) + env->yoff) - env->z;
 			if (i + 1 < env->h)
-			{
-				ft_drawgrid_if1(env, i, j);
-			}
+				ft_drawgrid_if1(env, i + 1, j);
 			if (j + 1 < env->w)
-			{
-				ft_drawgrid_if2(env, i, j);
-			}
+				ft_drawgrid_if2(env, i, j + 1);
 		}
 	}
 }

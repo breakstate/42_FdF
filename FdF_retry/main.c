@@ -23,21 +23,15 @@ void		ft_allocate(t_env *env)
 	env->fd = open(env->file, O_RDONLY);
 	while (get_next_line(env->fd, &line) > 0 && ++i < env->h)
 	{
+		printf("env-w (x) = [%d], env-h (y) = [%d]\n", env->w, env->h);
 		j = -1;
 		split = ft_strsplit(line, ' ');
 		while (++j < env->w)
-		{
 			env->map[i][j] = ft_atoi(split[j]);
-			free(split[j]);
-		}
-		//free properly
 		free(line);
-		split = NULL;
+		ft_free2dchar(split);
 		line = NULL;
 	}
-	//ft_print2dint(env->map, env->w, env->h);
-	//ft_free2dint(env->map, env->h);
-	//ft_putstr("freed.. but test\n");
 }
 
 void	ft_countlines(t_env *env)
@@ -75,11 +69,7 @@ int		ft_checkargs(int argc, char **argv, t_env *env)
 int		main(int argc, char **argv)
 {
 	t_env	env;
-
-	env.zoom = 10;
-	env.zoomz = 10;
-	env.xoff = 200;
-	env.yoff = 200;
+	ft_init(&env);
 	env.fd = ft_checkargs(argc, argv, &env);
 	ft_countlines(&env);
 	ft_allocate(&env);

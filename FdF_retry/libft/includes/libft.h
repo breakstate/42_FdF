@@ -24,6 +24,7 @@ void	ft_bzero(void *s, size_t n);
 int		ft_charequ(char const s1, char const s2);
 int		ft_countwords(const char *str, char c);
 void	ft_free2dint(int **arr, int y);
+void	ft_free2dchar(char **arr);
 int		ft_isascii(int c);
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);

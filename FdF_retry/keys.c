@@ -3,6 +3,7 @@
 int		ft_redclose(t_env *env)
 {
 	mlx_destroy_window(env->mlx, env->win);
+	ft_free2dint(env->map, env->h);
 	exit(0);
 }
 
@@ -25,10 +26,13 @@ int		ft_keyinput(int keycode, t_env *env)
 	if (keycode == 8)
 	{
 		mlx_clear_window(env->mlx, env->win);
+		ft_init(env);
+		ft_drawgrid(env);
 	}
 	if (keycode == 53)
 	{
 		mlx_destroy_window(env->mlx, env->win);
+		ft_free2dint(env->map, env->h);
 		exit(0);
 	}
 	if (keycode == 69 || keycode == 78)

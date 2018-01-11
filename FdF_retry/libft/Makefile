@@ -18,6 +18,7 @@ SRC = ft_atoi.c\
 	  ft_charequ.c\
 	  ft_countwords.c\
 	  ft_free2dint.c\
+	  ft_free2dchar.c\
 	  ft_isascii.c\
 	  ft_isalnum.c\
 	  ft_isalpha.c\

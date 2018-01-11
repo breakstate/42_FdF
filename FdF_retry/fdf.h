@@ -19,22 +19,19 @@
 # include <math.h>
 # include "libft/includes/libft.h"
 
-//+ = 69
-//- = 78
-//esc = 53
-//left = 123
-//right = 124
-//up = 126
-//down = 125
-//smaller than = 43
-//bigger than = 47
-
-# define ENV(x, i, j) x - (env->map[i][j] * env->zoomz)
-
-typedef struct	s_mlx{
-	void	*mlx;
-	void	*win;
-}				t_mlx;
+/*
+**	keycode reference:
+**
+**	+ = 69
+**	- = 78
+**	esc = 53
+**	left = 123
+**	right = 124
+**	up = 126
+**	down = 125
+**	smaller than = 43
+**	bigger than = 47
+*/
 
 typedef struct	s_line{
 	float		dx;
@@ -63,10 +60,12 @@ typedef struct	s_env{
 	int		zoomz;
 	int		xoff;
 	int		yoff;
+	int		z;
 }				t_env;
 
 void	ft_drawgrid(t_env *env);
 int		ft_keyinput(int keycode, t_env *env);
 int		ft_redclose(t_env *env);
+void	ft_init(t_env *env);
 
 #endif
