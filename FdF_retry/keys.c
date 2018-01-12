@@ -36,6 +36,12 @@ int			ft_keyinput2(int keycode, t_env *env)
 		mlx_clear_window(env->mlx, env->win);
 		ft_drawgrid(env);
 	}
+	if (keycode == 43 || keycode == 47)
+	{
+		env->zoomz += keycode == 43 ? 2 : -2;
+		mlx_clear_window(env->mlx, env->win);
+		ft_drawgrid(env);
+	}
 	return (0);
 }
 
@@ -56,6 +62,7 @@ int			ft_keyinput(int keycode, t_env *env)
 			env->zoom = 20;
 		else
 		{
+			env->zoomz = env->zoom;
 			mlx_clear_window(env->mlx, env->win);
 			ft_drawgrid(env);
 		}

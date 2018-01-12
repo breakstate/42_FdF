@@ -19,6 +19,8 @@
 # include <math.h>
 # include "libft/includes/libft.h"
 
+# define scale 4
+
 /*
 **	keycode reference:
 **
@@ -59,9 +61,12 @@ typedef struct	s_env{
 	void		*mlx;
 	void		*win;
 	int			zoom;
+	int			zoomz;
 	int			xoff;
 	int			yoff;
-	int			z;
+	int			z1;
+	int			z2;
+	int			col;
 }				t_env;
 
 void			ft_drawgrid(t_env *env);

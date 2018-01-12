@@ -30,6 +30,7 @@ void		ft_init(t_env *env)
 		env->zoom = 2;
 	else
 		env->zoom = 10;
+	env->zoomz = env->zoom;//fix
 	env->xoff = 200;
 	env->yoff = 200;
 	ft_initwin(env);
