@@ -6,7 +6,7 @@
 /*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/30 23:57:06 by bmoodley          #+#    #+#             */
-/*   Updated: 2017/07/01 12:05:57 by bmoodley         ###   ########.fr       */
+/*   Updated: 2018/01/12 12:50:47 by bmoodley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <math.h>
 # include "libft/includes/libft.h"
 
-# define scale 4
+# define SCALE 4
 
 /*
 **	keycode reference:

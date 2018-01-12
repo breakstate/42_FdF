@@ -6,7 +6,7 @@
 /*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/18 12:50:35 by bmoodley          #+#    #+#             */
-/*   Updated: 2017/12/14 14:26:44 by bmoodley         ###   ########.fr       */
+/*   Updated: 2018/01/12 12:59:13 by bmoodley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ static int		ft_count_words(const char *str, char c)
 char			**ft_strsplitn(char const *s, char c, int *n)
 {
 	int			i;
-	//int			count_words;
 	char		**word_array;
 
 	i = 0;

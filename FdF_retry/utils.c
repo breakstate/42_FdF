@@ -6,7 +6,7 @@
 /*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 15:31:17 by bmoodley          #+#    #+#             */
-/*   Updated: 2018/01/11 15:31:18 by bmoodley         ###   ########.fr       */
+/*   Updated: 2018/01/12 12:52:34 by bmoodley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void		ft_init(t_env *env)
 		env->zoom = 2;
 	else
 		env->zoom = 10;
-	env->zoomz = env->zoom;//fix
+	env->zoomz = env->zoom;
 	env->xoff = 200;
 	env->yoff = 200;
 	ft_initwin(env);
