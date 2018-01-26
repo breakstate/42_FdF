@@ -5,102 +5,93 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmoodley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/12 12:59:44 by bmoodley          #+#    #+#             */
-/*   Updated: 2018/01/12 12:59:54 by bmoodley         ###   ########.fr       */
+/*   Created: 2017/11/18 12:50:35 by bmoodley          #+#    #+#             */
+/*   Updated: 2017/12/14 14:26:44 by bmoodley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	check_words(const char *s, char c)
+static void		ft_gw_helper(int *count, int *flag, int *pos, int i)
 {
-	int		i;
-	int		d_inc;
-	int		counter;
+	(*count)++;
+	*flag = 1;
+	*pos = i;
+}
+
+static char		*ft_get_words(const char *str, char c, int index)
+{
+	int			i;
+	int			count;
+	int			flag;
+	int			pos;
 
 	i = -1;
-	d_inc = 0;
-	counter = 0;
-	while (s[++i] != '\0')
+	flag = 0;
+	count = 0;
+	pos = 0;
+	while (str[++i])
 	{
-		if (s[i] == c)
-			d_inc = 0;
-		if (s[i] != c && d_inc == 0)
+		if (str[i] == c)
+			flag = 0;
+		else if (str[i] != c && flag == 0)
+			ft_gw_helper(&count, &flag, &pos, i);
+		if (index == (count))
 		{
-			counter++;
-			d_inc = 1;
+			while (str[i] != c)
+				i++;
+			return (ft_strsub(str, pos, i - pos));
 		}
 	}
-	return (counter);
+	return (0);
 }
 
-static int	getstart(const char *s, char c, int counter, int index)
+static int		ft_count_words(const char *str, char c)
 {
-	int start;
-	int i;
+	int			i;
+	int			count;
+	int			flag;
 
-	i = -1;
-	while (s[++i] != '\0')
-	{
-		while (s[i] == c && s[i] != '\0')
-			i++;
-		if (counter == index)
-			start = i;
-		counter++;
-		while (s[i] != c && s[i] != '\0')
-			i++;
-	}
-	return (start);
-}
-
-static char	*get_word(const char *s, char c, int index)
-{
-	int		i;
-	int		counter;
-	char	*str;
-	int		start;
-
-	start = 0;
-	i = -1;
-	counter = 0;
-	start = getstart(s, c, counter, index);
 	i = 0;
-	while (s[start + i] != c && s[start + i] != '\0')
-		i++;
-	str = ft_strnew(i);
-	counter = 0;
-	while (i--)
+	flag = 0;
+	count = 0;
+	while (str[i])
 	{
-		str[counter] = s[start];
-		counter++;
-		start++;
+		if (str[i] != c && flag == 0)
+		{
+			flag = 1;
+			count++;
+		}
+		else if (str[i] == c)
+			flag = 0;
+		i++;
 	}
-	return (str);
+	//debug
+	printf("ft_strsplit: word count = [%d]\n");
+	return (count);
 }
 
-char		**ft_strsplit(char const *s, char c)
+char			**ft_strsplit(char const *s, char c)
 {
-	int		ti;
-	int		index;
-	char	**strings;
+	int			i;
+	int			count_words;
+	char		**word_array;
 
-	index = 0;
-	if (s == NULL)
-		return (NULL);
-	index = check_words(s, c);
-	if (index == 0)
+	i = 0;
+	word_array = NULL;
+	if (s != NULL)
 	{
-		strings = (char **)ft_memalloc(sizeof(char *) * 1);
-		if (strings == NULL)
+		count_words = ft_count_words(s, c);
+		word_array = (char **)ft_memalloc(sizeof(char *) * (count_words + 1));
+		if (word_array == NULL)
 			return (NULL);
-		strings[0] = NULL;
-		return (strings);
+		while (i < count_words)
+		{
+			word_array[i] = ft_get_words(s, c, i + 1);
+			i++;
+		}
 	}
-	strings = (char **)ft_memalloc(sizeof(char *) * (index + 1));
-	if (strings == NULL)
-		return (NULL);
-	ti = -1;
-	while (++ti < index)
-		strings[ti] = get_word(s, c, ti);
-	return (strings);
+	else
+		word_array = (char **)ft_memalloc(sizeof(char *) * 1);
+	return (word_array);
 }
